@@ -1,0 +1,55 @@
+#Joseph Cuevas
+#EE 381 Lab 1 Problem 1
+
+#import statements from libraries
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
+#p being the vector of probabilities
+def nSidedDie(p):
+    sum = 0
+    for i in p:
+        sum += i
+    if sum != 1:
+        print("The probabilities don't add up to 1.0, therefore are incorrect")
+        return
+
+    #Create a variable for random in the range [0,1.0)
+    rand = np.random.random()
+    x = 0
+    for count, i in enumerate(p):
+        if  rand >= x and rand < x + i:
+            break
+        x += i
+    return count
+
+#Given 'p' list vector of probabilities for each side of the die
+p = [.10, .15, .20, .05, .30, .10, .10]
+#The N of number of times we roll this die
+numOfRolls = 10000
+s = np.zeros((numOfRolls,1))
+
+outcomes = [0] * (len(p))
+for i in range(0, numOfRolls):
+    r = nSidedDie(p)
+    outcomes[r] = outcomes[r] + 1
+
+print("In order to double check graph values, each frequency will be printed out")
+for rolls in outcomes:
+    print(rolls)
+
+#Plot the information
+n = len(p)
+b = range(1,n+2)
+sb = np.size(b)
+h1, bin_edges = np.histogram(s, bins=b)
+b1=bin_edges[0:sb-1]
+plt.close('all')
+plt.stem(b1,outcomes)
+
+#Labeling for the graph
+plt.title("Number of Rolls for N-Sided Die")
+plt.xlabel("Side of Die")
+plt.ylabel("Frequency")
+plt.show()
