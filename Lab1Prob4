@@ -1,0 +1,40 @@
+#Joseph Cuevas, Jason Guiterrez, Reynaldo Suarez
+#Lab 1 Problem 4
+
+import string
+import random
+
+#Problem to check p of having random 'm' list containing our password
+def checkForPassInMList(m):
+    wordInMList = 0
+    for i in range(N):
+        if password in generateHackerList(m):
+            wordInMList += 1
+    prob = wordInMList / N
+    print("Probability of randomly generated list (m) containing password:" + "%.2f" % prob)
+
+def checkForPassInMKList(m):
+    wordInMKList = 0
+    for i in range(N):
+        if password in generateHackerList(m):
+            wordInMKList += 1
+    prob = wordInMKList / N
+    print("Probability of randomly generated list (m * k) containing password:" + "%.2f" % prob)
+
+
+def generateHackerList(m):
+    hackerWordList = []
+    for i in range(m):
+        randWord = ''.join(random.choices(string.ascii_lowercase, k = 4))
+        hackerWordList.append(randWord)
+    return hackerWordList
+
+m = 80000
+k = 7
+N = 1000
+password = "sads"
+
+checkForPassInMList(m)
+checkForPassInMKList(m*k)
+
+
